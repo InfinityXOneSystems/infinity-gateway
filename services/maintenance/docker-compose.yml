@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  background_agent:
+    build: ../../background_agent
+    env_file:
+      - ../../background_agent/.env.secret
+    ports:
+      - "8005:8005"
+    restart: unless-stopped

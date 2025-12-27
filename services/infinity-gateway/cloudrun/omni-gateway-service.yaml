@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: omni-gateway
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/PROJECT_ID/omni-gateway:latest
+          env:
+            - name: SAFE_MODE
+              value: "true"
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: 1
