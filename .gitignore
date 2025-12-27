@@ -14,3 +14,6 @@ credentials.json
 workspace-sa.json
 CredentialManager/
 .secrets/
+
+# ignore local credentials
+.credentials/
