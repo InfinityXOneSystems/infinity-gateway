@@ -7,3 +7,9 @@ venv/
 env/
 
 infinity-gateway/.git
+
+# local credential stores
+.credentials/
+
+# docker images
+credential-manager:dev
