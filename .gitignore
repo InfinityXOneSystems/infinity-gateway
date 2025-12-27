@@ -1,0 +1,9 @@
+# Repository ignores
+.credentials/
+.DS_Store
+__pycache__/
+*.pyc
+venv/
+env/
+
+infinity-gateway/.git

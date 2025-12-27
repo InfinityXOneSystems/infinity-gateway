@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Background Agent",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Tasks Enqueued",
+        "targets": [
+          {"expr": "bgagent_tasks_enqueued_total"}
+        ]
+      },
+      {
+        "type": "stat",
+        "title": "Tasks Processed",
+        "targets": [
+          {"expr": "bgagent_tasks_processed_total"}
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+replicaCount: 1
+image:
+  repository: ghcr.io/YOUR_ORG/background-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  port: 8005

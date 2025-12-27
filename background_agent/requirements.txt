@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+python-json-logger
+requests
+fastapi==0.95.2
+uvicorn[standard]==0.23.0
+pydantic==1.10.12
+requests==2.31.0
+python-dotenv==1.0.0
+SQLAlchemy==2.0.22
+psycopg2-binary==2.9.7
+prometheus-client==0.17.0
+python-json-logger==2.0.7
+google-cloud-secret-manager==2.16.1

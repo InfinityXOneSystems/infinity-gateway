@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: background-agent
+  labels:
+    app: background-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: background-agent
+  template:
+    metadata:
+      labels:
+        app: background-agent
+    spec:
+      containers:
+        - name: background-agent
+          image: ghcr.io/YOUR_ORG/background-agent:latest
+          ports:
+            - containerPort: 8005
+          env:
+            - name: BACKGROUND_AGENT_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bgagent-secrets
+                  key: api_key

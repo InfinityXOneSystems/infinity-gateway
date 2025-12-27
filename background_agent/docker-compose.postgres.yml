@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: bgagent
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bgagent
+    volumes:
+      - bgagent_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bgagent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  background_agent:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - BACKGROUND_AGENT_API_KEY=changeme
+      - BACKGROUND_AGENT_DATABASE_URL=postgresql+psycopg2://bgagent:password@postgres:5432/bgagent
+      - BACKGROUND_AGENT_WORKERS=4
+    ports:
+      - 8005:8005
+    restart: unless-stopped
+
+volumes:
+  bgagent_pgdata:

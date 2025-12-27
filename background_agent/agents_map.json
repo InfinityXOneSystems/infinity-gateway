@@ -1,0 +1,5 @@
+{
+  "gateway": "http://127.0.0.1:8080/ingest",
+  "agentA": "http://127.0.0.1:8001/execute",
+  "agentB": "http://127.0.0.1:8002/execute"
+}

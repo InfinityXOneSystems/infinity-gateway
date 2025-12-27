@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "background-agent.fullname" . }}
+  labels:
+    app: {{ include "background-agent.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "background-agent.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "background-agent.name" . }}
+    spec:
+      containers:
+        - name: background-agent
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8005
