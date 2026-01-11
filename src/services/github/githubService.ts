@@ -75,15 +75,6 @@ export interface GitHubIssue {
   closedAt?: Date;
 }
 
-export interface GitHubWebhookEvent {
-  action: string;
-  repository?: GitHubRepository;
-  sender: {
-    login: string;
-    id: number;
-  };
-  [key: string]: any;
-}
 
 export class GitHubService {
   private config: GitHubConfig;

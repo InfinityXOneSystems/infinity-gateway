@@ -9,6 +9,8 @@
 
 import express from 'express';
 import { createServer } from 'http';
+import * as http from 'http';
+import { RedisClientType } from 'redis';
 import { Server as SocketIOServer } from 'socket.io';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -28,7 +30,7 @@ import { PubSubService } from './services/pubsub/pubsubService';
 import { GitHubService } from './services/github/githubService';
 import { GoogleWorkspaceService } from './services/google-workspace/googleWorkspaceService';
 import { AdminService } from './services/admin/adminService';
-import { createAdminRoutes } from './services/admin/adminRoutes';
+
 
 // Load environment variables
 dotenv.config();
@@ -53,9 +55,9 @@ const config = {
 
 class InfinityGateway {
   private app: express.Application;
-  private server: any;
+  private server: http.Server;
   private io: SocketIOServer;
-  private redis: any;
+  private redis: RedisClientType;
 
   // Core services
   private mcpService: MCPService;
@@ -293,6 +295,9 @@ class InfinityGateway {
       }
     });
 
+    // Admin Routes
+    this.app.use("/admin", createAdminRoutes(this.adminService, this.securityService));
+
     // PubSub Routes
     this.app.post('/pubsub/publish', this.securityService.authenticate, async (req, res) => {
       try {
@@ -365,7 +370,7 @@ class InfinityGateway {
     });
 
     // Error handler
-    this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    this.app.use((err: Error, req: express.Request, res: express.Response) => {
       console.error('Unhandled error:', err);
       this.monitoringService.recordError(err, req);
       res.status(500).json({ error: 'Internal server error' });
